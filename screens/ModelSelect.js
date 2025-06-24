@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
 
+// Default models shown as cards
 const DEFAULT_MODELS = [
   {
     id: 'image',
@@ -16,16 +17,20 @@ const DEFAULT_MODELS = [
   },
 ];
 
+// Model selection screen
 export default function ModelSelect(props) {
   const navigation = props.navigation;
+  // Get user's name from navigation params (if present)
   const name = navigation && navigation.state && navigation.state.params && navigation.state.params.name
     ? navigation.state.params.name
     : '';
 
+  // State for models, download status, and selection
   const [models, setModels] = useState(DEFAULT_MODELS);
   const [downloaded, setDownloaded] = useState({ image: false, audio: false });
   const [selected, setSelected] = useState(null);
 
+  // Handle new model creation from CreateModel screen
   useEffect(() => {
     const params = navigation && navigation.state && navigation.state.params ? navigation.state.params : {};
     if (params.newModel) {
@@ -48,12 +53,14 @@ export default function ModelSelect(props) {
     }
   }, [navigation, models]);
 
+  // Simulate model download
   const downloadModel = (id) => {
     setTimeout(() => {
       setDownloaded((prev) => ({ ...prev, [id]: true }));
     }, 500);
   };
 
+  // Navigate to UseModel screen for selected model
   const goToUseScreen = () => {
     if (selected && downloaded[selected]) {
       navigation.navigate('UseModel', { modelType: selected });
@@ -62,10 +69,12 @@ export default function ModelSelect(props) {
 
   return (
     <View style={styles.container}>
+      {/* User's name and instructions */}
       <Text style={styles.header}>{name} 🟢</Text>
       <View style={styles.underline} />
       <Text style={styles.provider}>Download the Models provided by : Ali Noor</Text>
 
+      {/* Model cards */}
       {models.map((model) => (
         <TouchableOpacity
           key={model.id}
@@ -81,6 +90,7 @@ export default function ModelSelect(props) {
         </TouchableOpacity>
       ))}
 
+      {/* Use button */}
       <View style={styles.buttonRow}>
         <Button
           title="Use"
@@ -90,7 +100,7 @@ export default function ModelSelect(props) {
         />
       </View>
 
-      {/* Floating Plus Button */}
+      {/* Floating Plus Button to create a new model */}
       <TouchableOpacity
         style={styles.plusButton}
         onPress={() => navigation.navigate('CreateModel')}
@@ -101,6 +111,7 @@ export default function ModelSelect(props) {
   );
 }
 
+// Styles for ModelSelect screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

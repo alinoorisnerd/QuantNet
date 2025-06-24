@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
+// Screen for entering user's name
 export default function NameInput({ navigation }) {
   const [name, setName] = useState('');
 
+  // On continue, navigate to ModelSelect with the entered name
   const handleContinue = () => {
     if (name.trim() !== '') {
       navigation.navigate('ModelSelect', { name });
@@ -25,6 +27,7 @@ export default function NameInput({ navigation }) {
   );
 }
 
+// Styles for NameInput screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,

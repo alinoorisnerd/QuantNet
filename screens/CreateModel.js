@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
+// Dummy file options for the dropdown
 const dummyFiles = [
   { label: 'celebs.pdf', value: 'celebs.pdf' },
   { label: 'faces.jpg', value: 'faces.jpg' },
@@ -9,18 +10,22 @@ const dummyFiles = [
   { label: 'sample.png', value: 'sample.png' },
 ];
 
+// Screen for creating a new model
 export default function CreateModel({ navigation }) {
+  // State for form fields
   const [modelName, setModelName] = useState('');
   const [labelOne, setLabelOne] = useState('');
   const [labelTwo, setLabelTwo] = useState('');
   const [selectedFile, setSelectedFile] = useState(dummyFiles[0].value);
 
+  // Handle "Train and Create" button press
   const handleCreate = () => {
+    // Validate all fields
     if (!modelName || !labelOne || !labelTwo || !selectedFile) {
       Alert.alert('Please fill all fields');
       return;
     }
-    // Pass new model info back to ModelSelect via navigation params or a callback
+    // Pass new model info back to ModelSelect via navigation params
     navigation.navigate('ModelSelect', {
       newModel: {
         id: modelName.toLowerCase().replace(/\s+/g, '-'),
@@ -34,6 +39,7 @@ export default function CreateModel({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Create a New Model</Text>
+      {/* Model name input */}
       <TextInput
         style={styles.input}
         placeholder="Name your model"
@@ -41,6 +47,7 @@ export default function CreateModel({ navigation }) {
         value={modelName}
         onChangeText={setModelName}
       />
+      {/* Label 1 input */}
       <TextInput
         style={styles.input}
         placeholder="Label 1"
@@ -48,6 +55,7 @@ export default function CreateModel({ navigation }) {
         value={labelOne}
         onChangeText={setLabelOne}
       />
+      {/* Label 2 input */}
       <TextInput
         style={styles.input}
         placeholder="Label 2"
@@ -55,6 +63,7 @@ export default function CreateModel({ navigation }) {
         value={labelTwo}
         onChangeText={setLabelTwo}
       />
+      {/* File picker */}
       <Text style={styles.label}>Select a file:</Text>
       <View style={styles.pickerContainer}>
         <Picker
@@ -67,6 +76,7 @@ export default function CreateModel({ navigation }) {
           ))}
         </Picker>
       </View>
+      {/* Train and Create button */}
       <TouchableOpacity style={styles.createButton} onPress={handleCreate}>
         <Text style={styles.createButtonText}>Train and Create</Text>
       </TouchableOpacity>
@@ -74,6 +84,7 @@ export default function CreateModel({ navigation }) {
   );
 }
 
+// Styles for CreateModel screen
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#111', padding: 24 },
   header: { fontSize: 24, color: '#fff', marginBottom: 24, fontWeight: 'bold' },

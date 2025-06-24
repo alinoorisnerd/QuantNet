@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
+// Story screen shown after Welcome
 export default function Story({ navigation }) {
   useEffect(() => {
+    // Automatically navigate to NameInput after 30 seconds
     const timer = setTimeout(() => navigation.replace('NameInput'), 30000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <View style={styles.container}>
+      {/* Story text and image */}
       <Text style={styles.text}>
         The age of AI was peaceful. What Humans feared the most - AI turning against us never happened, but the nature eventually did. The 2nd Biggest flooding after Noah's ark took place. Result? The whole of Silicon Valley alongside its servers got wiped out. A 100 years of over-reliance and  dependency made humans forgoe books. Now it is upto the community to Communicate and revive the Computational Glory!
 
@@ -22,6 +25,7 @@ export default function Story({ navigation }) {
   );
 }
 
+// Styles for Story screen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
